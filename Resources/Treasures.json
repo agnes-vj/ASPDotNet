@@ -1,5 +1,6 @@
 [
   {
+      "Id":1,
     "Name": "Golden Crown",
     "Type": "Jewelry",
     "Material": "Gold",
@@ -10,6 +11,7 @@
     "Origin": "Ancient Kingdom"
   },
   {
+     "Id":2,
     "Name": "Neil's Book",
     "Type": "Book",
     "Material": "Leather-bound with silver inlay",
@@ -20,6 +22,7 @@
     "Origin": "Library of Shadows"
   },
   {
+     "Id":3,
     "Name": "Alice's Football Boots",
     "Type": "Footwear",
     "Material": "Dragonhide Leather",
@@ -30,6 +33,7 @@
     "Origin": "Tournament of Champions"
   },
   {
+     "Id":4,
     "Name": "Sapphire Necklace",
     "Type": "Jewelry",
     "Material": "Silver",
@@ -40,6 +44,7 @@
     "Origin": "Royal Family"
   },
   {
+     "Id":5,
     "Name": "Ancient Scroll",
     "Type": "Artifact",
     "Material": "Papyrus",
@@ -50,6 +55,7 @@
     "Origin": "Forgotten Empire"
   },
   {
+     "Id":6,
     "Name": "Dragon's Fang Dagger",
     "Type": "Weapon",
     "Material": "Dragon Fang",
@@ -60,6 +66,7 @@
     "Origin": "Dragon Slayers Guild"
   },
   {
+     "Id":7,
     "Name": "Bag of Rare Coins",
     "Type": "Currency",
     "Material": "Gold and Silver",
@@ -70,6 +77,7 @@
     "Origin": "Lost Merchant Ship"
   },
   {
+     "Id":8,
     "Name": "Ruby-Studded Chalice",
     "Type": "Relic",
     "Material": "Gold",
@@ -81,6 +89,7 @@
     "Origin": "Temple of the Sun"
   },
   {
+     "Id":9,
     "Name": "Enchanted Amulet",
     "Type": "Jewelry",
     "Material": "Bronze",
@@ -91,6 +100,7 @@
     "Origin": "Mystic Forest"
   },
   {
+     "Id":10,
     "Name": "Pirate's Treasure Chest",
     "Type": "Container",
     "Material": "Wood and Iron",
@@ -101,6 +111,7 @@
     "Origin": "Sunken Pirate Ship"
   },
   {
+     "Id":11,
     "Name": "Silver Chalice of the Moon",
     "Type": "Relic",
     "Material": "Silver",
