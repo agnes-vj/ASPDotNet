@@ -1,5 +1,6 @@
 [
   {
+    "Id":1,
     "Name": "The Golden Coin",
     "Type": "General Store",
     "Location": "Main Street, Capital City",
@@ -11,6 +12,7 @@
     "FoundedYear": 50
   },
   {
+     "Id":2,
     "Name": "Arcturus's Arcane Emporium",
     "Type": "Magic Shop",
     "Location": "Wizard's District, Silverport",
@@ -22,6 +24,7 @@
     "FoundedYear": 112
   },
   {
+     "Id":3,
     "Name": "The Silver Dagger",
     "Type": "Blacksmith",
     "Location": "Forge Alley, Stonehold",
@@ -33,6 +36,7 @@
     "FoundedYear": 85
   },
   {
+     "Id":4,
     "Name": "The Enchanted Needle",
     "Type": "Tailor Shop",
     "Location": "Market Square, Elvenholm",
@@ -44,6 +48,7 @@
     "FoundedYear": 95
   },
   {
+     "Id":5,
     "Name": "The Crimson Chalice",
     "Type": "Tavern",
     "Location": "Dockside, Seabreeze",
