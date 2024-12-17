@@ -16,4 +16,17 @@ app.MapGet("/rules", () =>
     return JsonSerializer.Deserialize<List<Rules>>(rules);
 });
 
+app.MapPost("/rules", (Rules input) =>
+{
+    string filePath = "Resources/Rules.json";
+
+    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
+    int newId = rules.Count + 1 ;
+    input.Id = newId;
+    rules.Add(input);
+    
+    File.WriteAllText("Resources/Rules.json",JsonSerializer.Serialize(rules));
+    return input;
+});
+
 app.Run();
