@@ -1,4 +1,5 @@
 using ASPNET;
+using System.Net;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,15 @@ app.MapGet("/rules/{id}", (int id) =>
     List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
     //Rules rule = rules.FirstOrDefault(r => r.Id == id);
     return JsonSerializer.Serialize<List<Rules>>(rules.FindAll(r => r.Id == id));
+});
+
+app.MapDelete("rules/{id}", (int id) =>
+{
+    string filePath = "Resources/Rules.json";
+    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
+    rules.Remove(rules.Find(r => r.Id == id));
+    File.WriteAllText("Resources/Rules.json", JsonSerializer.Serialize(rules));
+    return Results.NoContent();
 });
 
 app.Run();
