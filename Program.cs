@@ -29,4 +29,12 @@ app.MapPost("/rules", (Rules input) =>
     return input;
 });
 
+app.MapGet("/rules/{id}", (int id) =>
+{
+    string filePath = "Resources/Rules.json";
+    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
+    //Rules rule = rules.FirstOrDefault(r => r.Id == id);
+    return JsonSerializer.Serialize<List<Rules>>(rules.FindAll(r => r.Id == id));
+});
+
 app.Run();
