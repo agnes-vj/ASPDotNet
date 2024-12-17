@@ -57,4 +57,30 @@ app.MapPatch("rules/{id}", (int id, string content) =>
     return Results.Ok(rule);
 });
 
+app.MapGet("/treasure/{id}", (int id) =>
+{
+    string filePath = "Resources/Treasures.json";
+    List<Treasure> treasure = JsonSerializer.Deserialize<List<Treasure>>(File.ReadAllText(filePath));
+    //Rules rule = rules.FirstOrDefault(r => r.Id == id);
+    return JsonSerializer.Serialize<List<Treasure>>(treasure.FindAll(r => r.Id == id));
+});
+
+app.MapPost("/shops", (Shops input) =>
+{
+    string filePath = "Resources/Shops.json";
+
+    List<Shops> shops = JsonSerializer.Deserialize<List<Shops>>(File.ReadAllText(filePath));
+    int newId = shops.Count + 1;
+    input.Id = newId;
+    shops.Add(input);
+
+    File.WriteAllText(filePath, JsonSerializer.Serialize(shops));
+    return input;
+});
+app.MapGet("/shops", () =>
+{
+    string shops = File.ReadAllText("Resources/Shops.json");
+    return JsonSerializer.Deserialize<List<Shops>>(shops);
+});
+
 app.Run();
