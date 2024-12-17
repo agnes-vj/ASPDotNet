@@ -47,4 +47,14 @@ app.MapDelete("rules/{id}", (int id) =>
     return Results.NoContent();
 });
 
+app.MapPatch("rules/{id}", (int id, string content) =>
+{
+    string filePath = "Resources/Rules.json";
+    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
+    Rules rule = rules.FirstOrDefault(r => r.Id == id);
+    rule.Description = content;
+    File.WriteAllText("Resources/Rules.json", JsonSerializer.Serialize(rules));
+    return Results.Ok(rule);
+});
+
 app.Run();
