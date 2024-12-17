@@ -1,8 +1,11 @@
 using ASPNET;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ASPDbContext>(options => options.UseSqlServer(connectionString));
 var app = builder.Build();
 
 app.MapGet("/about", () =>
