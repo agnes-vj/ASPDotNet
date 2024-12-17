@@ -50,39 +50,63 @@ app.MapPost("/Shops", (Shops input, ASPDbContext db) =>
     return input;
 });
 
-app.MapGet("/rules/{id}", (int id) =>
+//app.MapGet("/rules/{id}", (int id) =>
+//{
+//    string filePath = "Resources/Rules.json";
+//    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
+//    //Rules rule = rules.FirstOrDefault(r => r.Id == id);
+//    return JsonSerializer.Serialize<List<Rules>>(rules.FindAll(r => r.Id == id));
+//});
+
+app.MapGet("/rules/{id}", (int id, ASPDbContext db) =>
 {
-    string filePath = "Resources/Rules.json";
-    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
-    //Rules rule = rules.FirstOrDefault(r => r.Id == id);
-    return JsonSerializer.Serialize<List<Rules>>(rules.FindAll(r => r.Id == id));
+    return db.Rules.Where(r => r.Id == id);
 });
 
-app.MapDelete("rules/{id}", (int id) =>
+//app.MapDelete("rules/{id}", (int id) =>
+//{
+//    string filePath = "Resources/Rules.json";
+//    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
+//    rules.Remove(rules.Find(r => r.Id == id));
+//    File.WriteAllText("Resources/Rules.json", JsonSerializer.Serialize(rules));
+//    return Results.NoContent();
+//});
+
+app.MapDelete("rules/{id}", (int id, ASPDbContext db) =>
 {
-    string filePath = "Resources/Rules.json";
-    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
-    rules.Remove(rules.Find(r => r.Id == id));
-    File.WriteAllText("Resources/Rules.json", JsonSerializer.Serialize(rules));
+    db.Rules.Remove(db.Rules.FirstOrDefault(r => r.Id == id));
+    db.SaveChanges();
     return Results.NoContent();
 });
 
-app.MapPatch("rules/{id}", (int id, string content) =>
+//app.MapPatch("rules/{id}", (int id, string content) =>
+//{
+//    string filePath = "Resources/Rules.json";
+//    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
+//    Rules rule = rules.FirstOrDefault(r => r.Id == id);
+//    rule.Description = content;
+//    File.WriteAllText("Resources/Rules.json", JsonSerializer.Serialize(rules));
+//    return Results.Ok(rule);
+//});
+
+app.MapPatch("rules/{id}", (int id, string content, ASPDbContext db) =>
 {
-    string filePath = "Resources/Rules.json";
-    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
-    Rules rule = rules.FirstOrDefault(r => r.Id == id);
-    rule.Description = content;
-    File.WriteAllText("Resources/Rules.json", JsonSerializer.Serialize(rules));
-    return Results.Ok(rule);
+    db.Rules.FirstOrDefault(r => r.Id == id).Description = content;
+    db.SaveChanges();
+    return Results.Ok(db.Rules.FirstOrDefault(r => r.Id == id));
 });
 
-app.MapGet("/treasure/{id}", (int id) =>
+//app.MapGet("/treasure/{id}", (int id) =>
+//{
+//    string filePath = "Resources/Treasures.json";
+//    List<Treasure> treasure = JsonSerializer.Deserialize<List<Treasure>>(File.ReadAllText(filePath));
+//    //Rules rule = rules.FirstOrDefault(r => r.Id == id);
+//    return JsonSerializer.Serialize<List<Treasure>>(treasure.FindAll(r => r.Id == id));
+//});
+
+app.MapGet("/treasure/{id}", (int id, ASPDbContext db) =>
 {
-    string filePath = "Resources/Treasures.json";
-    List<Treasure> treasure = JsonSerializer.Deserialize<List<Treasure>>(File.ReadAllText(filePath));
-    //Rules rule = rules.FirstOrDefault(r => r.Id == id);
-    return JsonSerializer.Serialize<List<Treasure>>(treasure.FindAll(r => r.Id == id));
+    return db.Treasures.FirstOrDefault(t => t.Id == id);
 });
 
 //app.MapPost("/shops", (Shops input) =>
