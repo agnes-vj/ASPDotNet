@@ -10,4 +10,10 @@ app.MapGet("/about", () =>
     return JsonSerializer.Deserialize<About>(about);
 });
 
+app.MapGet("/rules", () =>
+{
+    string rules = File.ReadAllText("Resources/Rules.json");
+    return JsonSerializer.Deserialize<List<Rules>>(rules);
+});
+
 app.Run();
