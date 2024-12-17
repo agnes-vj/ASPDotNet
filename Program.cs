@@ -8,28 +8,45 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 builder.Services.AddDbContext<ASPDbContext>(options => options.UseSqlServer(connectionString));
 var app = builder.Build();
 
-app.MapGet("/about", () =>
+//app.MapGet("/about", () =>
+//{
+//    string about = File.ReadAllText("Resources/About.json");
+//    return JsonSerializer.Deserialize<About>(about);
+//});
+app.MapGet("/about", (ASPDbContext db) =>
 {
-    string about = File.ReadAllText("Resources/About.json");
-    return JsonSerializer.Deserialize<About>(about);
+    var abouts = db.About;
+    return abouts;
 });
 
-app.MapGet("/rules", () =>
-{
-    string rules = File.ReadAllText("Resources/Rules.json");
-    return JsonSerializer.Deserialize<List<Rules>>(rules);
+//app.MapGet("/rules", () =>
+//{
+//    string rules = File.ReadAllText("Resources/Rules.json");
+//    return JsonSerializer.Deserialize<List<Rules>>(rules);
+//});
+
+app.MapGet("/rules", (ASPDbContext db) =>
+{    
+    return db.Rules;
 });
 
-app.MapPost("/rules", (Rules input) =>
-{
-    string filePath = "Resources/Rules.json";
+//app.MapPost("/rules", (Rules input) =>
+//{
+//    string filePath = "Resources/Rules.json";
 
-    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
-    int newId = rules.Count + 1 ;
-    input.Id = newId;
-    rules.Add(input);
-    
-    File.WriteAllText("Resources/Rules.json",JsonSerializer.Serialize(rules));
+//    List<Rules> rules = JsonSerializer.Deserialize<List<Rules>>(File.ReadAllText(filePath));
+//    int newId = rules.Count + 1 ;
+//    input.Id = newId;
+//    rules.Add(input);
+
+//    File.WriteAllText("Resources/Rules.json",JsonSerializer.Serialize(rules));
+//    return input;
+//});
+
+app.MapPost("/Shops", (Shops input, ASPDbContext db) =>
+{
+    db.Shops.Add(input);
+    db.SaveChanges();
     return input;
 });
 
@@ -68,22 +85,21 @@ app.MapGet("/treasure/{id}", (int id) =>
     return JsonSerializer.Serialize<List<Treasure>>(treasure.FindAll(r => r.Id == id));
 });
 
-app.MapPost("/shops", (Shops input) =>
-{
-    string filePath = "Resources/Shops.json";
+//app.MapPost("/shops", (Shops input) =>
+//{
+//    string filePath = "Resources/Shops.json";
 
-    List<Shops> shops = JsonSerializer.Deserialize<List<Shops>>(File.ReadAllText(filePath));
-    int newId = shops.Count + 1;
-    input.Id = newId;
-    shops.Add(input);
+//    List<Shops> shops = JsonSerializer.Deserialize<List<Shops>>(File.ReadAllText(filePath));
+//    int newId = shops.Count + 1;
+//    input.Id = newId;
+//    shops.Add(input);
 
-    File.WriteAllText(filePath, JsonSerializer.Serialize(shops));
-    return input;
-});
-app.MapGet("/shops", () =>
+//    File.WriteAllText(filePath, JsonSerializer.Serialize(shops));
+//    return input;
+//});
+app.MapGet("/Shops", (ASPDbContext db) =>
 {
-    string shops = File.ReadAllText("Resources/Shops.json");
-    return JsonSerializer.Deserialize<List<Shops>>(shops);
+    return db.Shops;
 });
 
 app.Run();
